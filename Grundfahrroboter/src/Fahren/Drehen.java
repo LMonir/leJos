@@ -3,19 +3,10 @@ package Fahren;
 import Sensoren.Gyrosensor;
 import lejos.robotics.RegulatedMotor;
 
-public class Drehen {
-	private Gyrosensor gyro;
-	private RegulatedMotor b;
-	private RegulatedMotor c;
+public class Drehen {	
 
-	public Drehen(RegulatedMotor b, RegulatedMotor c, int port) {
-		this.b = b;
-		this.c = c;
-		gyro = new Gyrosensor(port);
-	}
-
-	public void drehen(int grad, boolean rechts) {
-		int speed = (int) Math.round(grad - Math.abs(gyro.getGrad())) + 30;
+	public static void drehen(int grad, boolean rechts, RegulatedMotor b, RegulatedMotor c, Gyrosensor gyro) {
+		int speed = grad - Math.abs(gyro.getMessung()) + 30;
 		gyro.reset();
 		b.resetTachoCount();
 		c.resetTachoCount();
@@ -28,8 +19,8 @@ public class Drehen {
 			c.forward();
 			b.backward();
 		}
-		while (grad - Math.abs(gyro.getGrad()) > 2) {
-			speed = (int) Math.round(grad - Math.abs(gyro.getGrad())) + 30;
+		while (grad - Math.abs(gyro.getMessung()) > 2) {
+			speed = grad - Math.abs(gyro.getMessung()) + 30;
 
 			b.setSpeed(speed * 2);
 			c.setSpeed(speed * 2);

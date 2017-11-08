@@ -1,40 +1,49 @@
 package Regler;
-import Sensoren.Lichtsensor;
 
-public class PID {
-	private double pk;
-	private double ik;
-	private double dk;
-	private int sollwert;
-	private int v;
-	private Lichtsensor light;
-	private int diff;
-	private double diffsum;
-	private int diffalt;
+import Fahren.Fahren;
+import Sensoren.StandartSensor;
+import lejos.robotics.RegulatedMotor;
 
-	public PID(double pk, double ik, double dk, int port, int sollwert, int v) {
-		this.pk = pk;
-		this.ik = ik;
-		this.dk = dk;
-		this.sollwert = sollwert;
-		this.v = v;
-		light = new Lichtsensor(port);
+public class PID extends Thread {	
+	private Fahren drive;
+	private int mittelwert;
+	private int geschwindigkeit;
+	private StandartSensor s;
+	private PRegler p;
+	private IRegler i;
+	private DRegler d;
+	private boolean stop;
 
+	public PID(int mittelwert, StandartSensor s, double kp, double ki, double kd,
+			RegulatedMotor b, RegulatedMotor c) {		
+		drive = new Fahren(b, c);
+		this.mittelwert = mittelwert;
+		this.s = s;
+		p = new PRegler(kp);
+		i = new IRegler(ki, mittelwert);
+		d = new DRegler(kd);
 	}
 
-	private float diff() {
-		return sollwert - light.getLicht();
+	public void run() {
+		stop = false;
+		while (!stop) {
+			int diff = mittelwert - s.getMessung();
+			double regelung = Math.round(p.regelP(diff) + i.regelI(diff) + d.regelD(diff));
+			drive.setSpeedB((int) (geschwindigkeit + regelung));
+			drive.setSpeedC((int) (geschwindigkeit - regelung));
+			System.out.println(regelung);
+		}
 	}
 
-	private double pRegler() {
-		double pRegler = 0;
-		pRegler = pk * diff;
-		return pRegler;
+	public void drivePID(int geschwindigkeit) {
+		this.geschwindigkeit = geschwindigkeit;
+		drive.setDirection('f');
+		drive.start(geschwindigkeit);
+		start();			
 	}
-
-	private double iRegler() {
-		double iRegler = 0;
-		return iRegler;
+	
+	public void stopPID() {
+		drive.stopDrive();
+		stop = true;
 	}
-
 }

@@ -11,7 +11,8 @@ public class Lichtsensor extends StandartSensor{
 		sample = new float[provider.sampleSize()];
 	}
 	
-	public int getLicht() {
+	@Override
+	public int getMessung() {
 		provider.fetchSample(sample, 0);
 		return Math.round(sample[0]*100);
 	}

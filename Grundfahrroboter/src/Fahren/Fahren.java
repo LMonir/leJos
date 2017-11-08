@@ -2,52 +2,102 @@ package Fahren;
 
 import lejos.robotics.RegulatedMotor;
 
-public class Fahren extends Thread{
+public class Fahren extends Thread {
 	private RegulatedMotor b;
-	private RegulatedMotor c;
+	private RegulatedMotor c;	
 	private boolean stop = false;
-	private int speed = 0;
+	private int speedB = 0;
+	private int speedC = 0;
+	private char direction = 'f';
+	private boolean regulate;
 
 	public Fahren(RegulatedMotor b, RegulatedMotor c) {
 		this.b = b;
 		this.c = c;
+		this.regulate = true;
 	}
 
 	public void run() {
 		stop = false;
 		b.resetTachoCount();
 		c.resetTachoCount();
-		b.setSpeed(speed);
-		c.setSpeed(speed);
-		b.forward();
-		c.forward();
+		b.setSpeed(speedB);
+		c.setSpeed(speedC);
+		if (direction == 'b') {
+			b.backward();
+			c.backward();
+		}else {
+			b.forward();
+			c.forward();
+		}
 		while (!stop) {
-			if (b.getTachoCount() < c.getTachoCount()) {
-				b.setSpeed(speed + 1);
-				c.setSpeed(speed);
-			} else if (b.getTachoCount() > c.getTachoCount()) {
-				c.setSpeed(speed + 1);
-				b.setSpeed(speed);
-			} else {
-				b.setSpeed(speed);
-				c.setSpeed(speed);
+			if (regulate) {
+				if (b.getTachoCount() < c.getTachoCount()) {
+					b.setSpeed(speedB + 1);
+					c.setSpeed(speedC);
+				} else if (b.getTachoCount() > c.getTachoCount()) {
+					c.setSpeed(speedC + 1);
+					b.setSpeed(speedB);
+				} else {
+					b.setSpeed(speedB);
+					c.setSpeed(speedC);
+				}
 			}
-		}		
+		}
 		b.setSpeed(0);
-		c.setSpeed(0);
+		c.setSpeed(0);		
 	}
+
 	public void start(int speed) {
-		this.speed = speed;
+		this.speedB = speed;
+		this.speedC = speed;
+		b.resetTachoCount();
+		c.resetTachoCount();
 		start();
 	}
+
+	public void start(int speedB, int speedC) {
+		this.speedB = speedB;
+		this.speedC = speedC;
+		b.resetTachoCount();
+		c.resetTachoCount();
+		start();
+	}
+
 	public void setSpeed(int speed) {
-		this.speed = speed;
+		this.speedB = speed;
+		this.speedC = speed;
 	}
-	public int getSpeed() {
-		return speed;
+
+	public void setSpeedB(int speed) {
+		this.speedB = speed;
 	}
+
+	public void setSpeedC(int speed) {
+		this.speedC = speed;
+	}
+
+	public int getSpeedB() {
+		return speedB;
+	}
+
+	public int getSpeedC() {
+		return speedC;
+	}
+
+	public void setRegulation(boolean regulate) {
+		this.regulate = regulate;
+	}
+	
+	public boolean getRegulation() {
+		return regulate;
+	}
+	
 	public void stopDrive() {
 		stop = true;
 	}
 
+	public void setDirection(char d) {
+		direction = d;
+	}
 }

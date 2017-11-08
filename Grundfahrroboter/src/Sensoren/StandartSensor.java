@@ -12,7 +12,11 @@ public class StandartSensor {
 	public StandartSensor(int port) {
 		setP(port);
 	}
-
+	
+	public int getMessung() {
+		return 0;
+	}
+	
 	public SampleProvider getProvider() {
 		return provider;
 	}
