@@ -1,21 +1,22 @@
 package Regler;
 import Berechnung.GradCm;
 import Sensoren.Lichtsensor;
+import Sensoren.StandartSensor;
 import lejos.robotics.RegulatedMotor;
 
 public class Proportionalfolger {
-	private Lichtsensor licht;
+	private StandartSensor s;
 	private RegulatedMotor b;
 	private RegulatedMotor c;
 
-	public Proportionalfolger(Lichtsensor licht, RegulatedMotor b, RegulatedMotor c) {
-		this.licht = licht;
+	public Proportionalfolger(StandartSensor s, RegulatedMotor b, RegulatedMotor c) {
+		this.s = s;
 		this.b = b;
 		this.c = c;
 	}
 
 	public void folge(int sollwert, double p, int geschwindigkeit) {
-		int diff = (int) Math.round((sollwert - licht.getLicht()) * p);
+		int diff = (int) Math.round((sollwert - s.getMessung()) * p);
 		b.setSpeed(geschwindigkeit - diff);
 		c.setSpeed(geschwindigkeit + diff);
 		b.forward();

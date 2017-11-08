@@ -1,40 +1,28 @@
 package Regler;
+
 import Sensoren.Lichtsensor;
+import Sensoren.StandartSensor;
 
 public class PID {
-	private double pk;
-	private double ik;
-	private double dk;
-	private int sollwert;
-	private int v;
-	private Lichtsensor light;
-	private int diff;
-	private double diffsum;
-	private int diffalt;
+	private int mittelwert;
+	private int geschwindigkeit;
+	private StandartSensor licht;
+	private PRegler p;
+	private IRegler i;
+	private DRegler d;
 
-	public PID(double pk, double ik, double dk, int port, int sollwert, int v) {
-		this.pk = pk;
-		this.ik = ik;
-		this.dk = dk;
-		this.sollwert = sollwert;
-		this.v = v;
-		light = new Lichtsensor(port);
-
+	public PID(int mittelwert, int geschwindigkeit, StandartSensor licht, double kp, double ki, double kd) {
+		this.mittelwert = mittelwert;
+		this.geschwindigkeit = geschwindigkeit;
+		this.licht = licht;
+		p = new PRegler(kp);
+		i = new IRegler(ki, mittelwert);
+		d = new DRegler(kd);
 	}
-
-	private float diff() {
-		return sollwert - light.getLicht();
+	
+	private double regelPID() {
+		int diff = mittelwert-licht.getMessung();
+		double regelung = p.regelP(diff) + i.regelI(diff) + d.regelD(diff);
+		return regelung;
 	}
-
-	private double pRegler() {
-		double pRegler = 0;
-		pRegler = pk * diff;
-		return pRegler;
-	}
-
-	private double iRegler() {
-		double iRegler = 0;
-		return iRegler;
-	}
-
 }
