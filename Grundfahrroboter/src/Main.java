@@ -19,9 +19,9 @@ public class Main {
 		robo.fahreCm(30, 700);
 		robo.drehen(60, true);
 		robo.fahreCm(30, 700);
-		// robo.drehen(50, false);
-		// robo.fahreCm(36, 500);
-		// robo.drehen(45, false);
+		robo.drehen(50, false);
+		robo.fahreCm(30, 500);
+		robo.drehen(45, false);
 		// robo.folgeCm(25, 2, 200, 45);
 	}
 }
