@@ -13,7 +13,7 @@ public class IRegler {
 		this.mittelwert = mittelwert;
 	}
 	public double regelI(int diff) {
-		diffSum = diffSum * 0.997 + diff;
+		diffSum = diffSum * 0.9975 + diff;
 		
 		if (diff*diffAlt < 0) {
 			diffSum = 0;
@@ -21,6 +21,6 @@ public class IRegler {
 		
 		diffAlt = diff;
 		
-		return diffSum * ki * (diff/mittelwert);
+		return (diffSum/133.33) * ki * (Math.abs(diff)/mittelwert);
 	}
 }

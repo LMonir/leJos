@@ -20,28 +20,24 @@ public class FahrenCm extends GradCm {
 		int minspeed = 5;
 		int s = 0;
 		double grad = Math.abs(getGrad(cm));
-		drive.start(minspeed);
-
 		if (cm < 0 ^ speed < 0) {
-			b.backward();
-			c.backward();
+			drive.setDirection('b');
 		} else {
-			b.forward();
-			c.forward();
+			drive.setDirection('f');
 		}
-
-		while ((minspeed < Math.abs(speed)) && (Math.abs(b.getTachoCount()) < grad / 2)) {
-			minspeed += 10;
+		drive.start(minspeed);
+		while ((minspeed < Math.abs(speed)) && (Math.abs(b.getTachoCount()) < (grad / 2))) {
+			minspeed += 5;			
 			drive.setSpeed(minspeed);
-
 		}
 		s = Math.abs(b.getTachoCount());
+		System.out.println(b.getTachoCount());
 		drive.setSpeed(minspeed);
 		
-		while (Math.abs(b.getTachoCount()) < grad - s) {}
+		while (Math.abs(b.getTachoCount()) < (grad - s - 20)) {}
 
 		while (Math.abs(b.getTachoCount()) < grad) {
-			minspeed -= 10;
+			minspeed -= 5;
 			drive.setSpeed(minspeed);
 		}
 		drive.stopDrive();

@@ -85,4 +85,13 @@ public class Fahren extends Thread {
 		stop = true;
 	}
 
+	public void setDirection(char d) {
+		if (d == 'b') {
+			b.backward();
+			c.backward();
+		}else {
+			b.forward();
+			c.forward();
+		}
+	}
 }

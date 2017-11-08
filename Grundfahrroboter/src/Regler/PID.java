@@ -32,16 +32,18 @@ public class PID extends Thread {
 		stop = false;
 		while (!stop) {
 			int diff = mittelwert - licht.getMessung();
-			double regelung = p.regelP(diff) + i.regelI(diff) + d.regelD(diff);
-			drive.setSpeedB((int) Math.round(geschwindigkeit + regelung));
-			drive.setSpeedC((int) Math.round(geschwindigkeit - regelung));
+			double regelung = Math.round(p.regelP(diff) + i.regelI(diff) + d.regelD(diff));
+			drive.setSpeedB((int) (geschwindigkeit + regelung));
+			drive.setSpeedC((int) (geschwindigkeit - regelung));
+			System.out.println(regelung);
 		}
 	}
 
 	public void drivePID() {
+		drive.setDirection('f');
 		drive.start(geschwindigkeit);
 		start();
-		WartenAuf.Grad(b, 600, ">=");
+		WartenAuf.Grad(b, 1500, ">=");
 		drive.stopDrive();
 		stop = true;
 	}
