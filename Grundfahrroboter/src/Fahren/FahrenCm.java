@@ -2,42 +2,36 @@ package Fahren;
 
 import Berechnung.GradCm;
 import lejos.robotics.RegulatedMotor;
+import lejos.utility.Delay;
 
-public class FahrenCm extends GradCm {
+public class FahrenCm {
 
-	private RegulatedMotor b;
-	private Fahren drive;
-	
-	public FahrenCm(double durchmesser, RegulatedMotor b, RegulatedMotor c) {
-		super(durchmesser);
-		this.b = b;
-		drive = new Fahren(b, c);
-	}
-
-	public void fahreCm(double cm, int speed) {
+	public static void fahreCm(double cm, int speed, RegulatedMotor b, RegulatedMotor c, GradCm grcm) {
+		Fahren drive = new Fahren(b, c);
 		int minspeed = 5;
 		int s = 0;
-		double grad = Math.abs(getGrad(cm));
+		int grad = Math.abs(grcm.getGrad(cm));
 		if (cm < 0 ^ speed < 0) {
 			drive.setDirection('b');
 		} else {
 			drive.setDirection('f');
-		}
+		}		
 		drive.start(minspeed);
 		while ((minspeed < Math.abs(speed)) && (Math.abs(b.getTachoCount()) < (grad / 2))) {
-			minspeed += 5;			
+			minspeed += 10;
 			drive.setSpeed(minspeed);
+			Delay.msDelay(5);			
 		}
 		s = Math.abs(b.getTachoCount());
-		System.out.println(b.getTachoCount());
-		drive.setSpeed(minspeed);
-		
-		while (Math.abs(b.getTachoCount()) < (grad - s - 20)) {}
-
+		while (Math.abs(b.getTachoCount()) < (grad - s)) {}
 		while (Math.abs(b.getTachoCount()) < grad) {
-			minspeed -= 5;
-			drive.setSpeed(minspeed);
+			if (minspeed > 40) {
+				minspeed -= 10;
+				drive.setSpeed(minspeed);
+				Delay.msDelay(5);
+			}
 		}
 		drive.stopDrive();
+		drive = null;
 	}
 }

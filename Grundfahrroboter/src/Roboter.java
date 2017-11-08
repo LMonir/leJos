@@ -14,8 +14,6 @@ public class Roboter {
 	private double durchmesser;
 	private PID pidLicht;
 	private PID pidGyro;
-	private FahrenCm fahren;
-	private Drehen drehen;
 	private GradCm grcm;
 	private RegulatedMotor b;
 	private RegulatedMotor c;
@@ -32,8 +30,6 @@ public class Roboter {
 		gyro = new Gyrosensor(3);
 		pidLicht = new PID(50, licht1, 0.5, 0.2, 0.8, b, c);
 		pidGyro = new PID(0, gyro, 0.5, 0.2, 0.8, b, c);
-		fahren = new FahrenCm(durchmesser, b, c);
-		drehen = new Drehen(b, c, 3);
 		grcm = new GradCm(durchmesser);
 	}
 	
@@ -50,11 +46,11 @@ public class Roboter {
 	}
 	
 	public void fahreCm(double cm, int speed) {
-		fahren.fahreCm(cm, speed);
+		FahrenCm.fahreCm(cm, speed, b, c, grcm);
 	}
 		
 	public void drehen(int grad, boolean rechts) {
-		drehen.drehen(grad, rechts);
+		Drehen.drehen(grad, rechts, b, c, gyro);
 	}
 
 	public double getDurchmesser() {

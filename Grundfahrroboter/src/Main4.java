@@ -1,5 +1,3 @@
-import Fahren.Fahren;
-import Fahren.FahrenCm;
 import Regler.PID;
 import Sensoren.Lichtsensor;
 import Warten.WartenAuf;

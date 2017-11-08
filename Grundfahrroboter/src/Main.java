@@ -12,13 +12,13 @@ public class Main {
 		led.setPattern(7);
 
 		Audio audio = LocalEV3.get().getAudio();
-		audio.setVolume(50);
+		audio.setVolume(20);
 		audio.playTone(1200, 100);
 		// robo.sendeServer("Hallo Welt!");
 		// Delay.msDelay(10000);
-		robo.fahreCm(20, -700);
-		// robo.drehen(60, false);
-		// robo.fahreCm(15, 500);
+		robo.fahreCm(30, 700);
+		robo.drehen(60, true);
+		robo.fahreCm(30, 700);
 		// robo.drehen(50, false);
 		// robo.fahreCm(36, 500);
 		// robo.drehen(45, false);

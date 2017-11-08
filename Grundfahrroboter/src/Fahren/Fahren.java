@@ -8,6 +8,7 @@ public class Fahren extends Thread {
 	private boolean stop = false;
 	private int speedB = 0;
 	private int speedC = 0;
+	private char direction = 'f';
 	private boolean regulate;
 
 	public Fahren(RegulatedMotor b, RegulatedMotor c) {
@@ -22,6 +23,13 @@ public class Fahren extends Thread {
 		c.resetTachoCount();
 		b.setSpeed(speedB);
 		c.setSpeed(speedC);
+		if (direction == 'b') {
+			b.backward();
+			c.backward();
+		}else {
+			b.forward();
+			c.forward();
+		}
 		while (!stop) {
 			if (regulate) {
 				if (b.getTachoCount() < c.getTachoCount()) {
@@ -37,18 +45,22 @@ public class Fahren extends Thread {
 			}
 		}
 		b.setSpeed(0);
-		c.setSpeed(0);
+		c.setSpeed(0);		
 	}
 
 	public void start(int speed) {
 		this.speedB = speed;
 		this.speedC = speed;
+		b.resetTachoCount();
+		c.resetTachoCount();
 		start();
 	}
 
 	public void start(int speedB, int speedC) {
 		this.speedB = speedB;
 		this.speedC = speedC;
+		b.resetTachoCount();
+		c.resetTachoCount();
 		start();
 	}
 
@@ -86,12 +98,6 @@ public class Fahren extends Thread {
 	}
 
 	public void setDirection(char d) {
-		if (d == 'b') {
-			b.backward();
-			c.backward();
-		}else {
-			b.forward();
-			c.forward();
-		}
+		direction = d;
 	}
 }
