@@ -1,6 +1,5 @@
 package Regler;
 import Berechnung.GradCm;
-import Sensoren.Lichtsensor;
 import Sensoren.StandartSensor;
 import lejos.robotics.RegulatedMotor;
 

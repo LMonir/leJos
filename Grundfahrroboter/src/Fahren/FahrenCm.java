@@ -8,8 +8,7 @@ public class FahrenCm extends GradCm {
 	private RegulatedMotor b;
 	private RegulatedMotor c;
 	private Fahren drive;
-	private static final int DIFF = 100;
-
+	
 	public FahrenCm(double durchmesser, RegulatedMotor b, RegulatedMotor c) {
 		super(durchmesser);
 		this.b = b;
