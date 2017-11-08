@@ -13,11 +13,12 @@ public class Gyrosensor extends StandartSensor{
 		sample = new float[provider.sampleSize()];
 	}
 	
-	public float getGrad() {
+	@Override
+	public int getMessung() {
 		provider.fetchSample(sample, 0);
 		grad = grad + (GyroGrad-sample[0]);
 		GyroGrad = sample[0];
-		return grad;
+		return (int)Math.round(grad) ;
 	}
 	
 	public void reset() {
