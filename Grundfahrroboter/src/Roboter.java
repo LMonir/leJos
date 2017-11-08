@@ -41,10 +41,7 @@ public class Roboter {
 	public void fahre(double cm, int speed) {
 		fahren.fahreCm(cm, speed);
 	}
-	public void fahre(double cm, int speed, boolean invert) {
-		fahren.fahreCm(cm, speed, invert);
-	}
-	
+		
 	public void drehen(int grad, boolean rechts) {
 		drehen.drehen(grad, rechts);
 	}

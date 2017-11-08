@@ -18,9 +18,7 @@ public class Fahren extends Thread{
 		b.resetTachoCount();
 		c.resetTachoCount();
 		b.setSpeed(speed);
-		c.setSpeed(speed);
-		b.forward();
-		c.forward();
+		c.setSpeed(speed);		
 		while (!stop) {
 			if (b.getTachoCount() < c.getTachoCount()) {
 				b.setSpeed(speed + 1);

@@ -14,43 +14,16 @@ public class FahrenCm extends GradCm {
 		super(durchmesser);
 		this.b = b;
 		this.c = c;
-		drive = new Fahren(b,c);
+		drive = new Fahren(b, c);
 	}
 
 	public void fahreCm(double cm, int speed) {
-		int minspeed = 5;		
-		double grad = getGrad(cm);
-		drive.start(minspeed);
-		
-		while (b.getTachoCount() < grad - DIFF) {
-			if (minspeed < speed - 20) {
-				minspeed += 10;
-				drive.setSpeed(minspeed);	
-			}					
-		}
-		long sub = Math.round((minspeed / DIFF)) + 1;
-		
-		while (b.getTachoCount() < grad) {
-			if (minspeed > sub) {
-				minspeed -= sub;
-			} else {
-				minspeed = (int) sub * 6;
-			}
-			drive.setSpeed(minspeed);	
-		}
-		drive.stopDrive();
-	}
-
-	public void fahreCm(double cm, int speed, boolean invert) {
 		int minspeed = 5;
-		int str = 1;
-		double grad = getGrad(cm);
+		int s = 0;
+		double grad = Math.abs(getGrad(cm));
+		drive.start(minspeed);
 
-		b.resetTachoCount();
-		c.resetTachoCount();
-		b.setSpeed(minspeed);
-		c.setSpeed(minspeed);
-		if (invert) {
+		if (cm < 0 ^ speed < 0) {
 			b.backward();
 			c.backward();
 		} else {
@@ -58,45 +31,20 @@ public class FahrenCm extends GradCm {
 			c.forward();
 		}
 
-		while (Math.abs(b.getTachoCount()) < grad - DIFF) {
-			if (minspeed < speed - 20) {
-				minspeed += 10;
-			}
+		while ((minspeed < Math.abs(speed)) && (Math.abs(b.getTachoCount()) < grad / 2)) {
+			minspeed += 10;
+			drive.setSpeed(minspeed);
 
-			if (Math.abs(b.getTachoCount()) < Math.abs(c.getTachoCount())) {
-				b.setSpeed(minspeed + str);
-				c.setSpeed(minspeed);
-			} else if (Math.abs(b.getTachoCount()) > Math.abs(c.getTachoCount())) {
-				c.setSpeed(minspeed + str);
-				b.setSpeed(minspeed);
-			} else {
-				b.setSpeed(minspeed);
-				c.setSpeed(minspeed);
-			}
 		}
-
-		long sub = Math.round((minspeed / DIFF)) + 1;
+		s = Math.abs(b.getTachoCount());
+		drive.setSpeed(minspeed);
+		
+		while (Math.abs(b.getTachoCount()) < grad - s) {}
 
 		while (Math.abs(b.getTachoCount()) < grad) {
-			if (minspeed > sub + 20) {
-				minspeed -= sub;
-			}
-
-			if (Math.abs(b.getTachoCount()) < Math.abs(c.getTachoCount())) {
-				b.setSpeed(minspeed + str);
-				c.setSpeed(minspeed);
-			} else if (Math.abs(b.getTachoCount()) > Math.abs(c.getTachoCount())) {
-				c.setSpeed(minspeed + str);
-				b.setSpeed(minspeed);
-			} else {
-				b.setSpeed(minspeed);
-				c.setSpeed(minspeed);
-			}
+			minspeed -= 10;
+			drive.setSpeed(minspeed);
 		}
-
-		b.setSpeed(0);
-		c.setSpeed(0);
-		b.stop();
-		c.stop();
+		drive.stopDrive();
 	}
 }

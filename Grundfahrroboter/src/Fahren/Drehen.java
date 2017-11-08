@@ -15,7 +15,7 @@ public class Drehen {
 	}
 
 	public void drehen(int grad, boolean rechts) {
-		int speed = (int) Math.round(grad - Math.abs(gyro.getGrad())) + 30;
+		int speed = grad - Math.abs(gyro.getMessung()) + 30;
 		gyro.reset();
 		b.resetTachoCount();
 		c.resetTachoCount();
@@ -28,8 +28,8 @@ public class Drehen {
 			c.forward();
 			b.backward();
 		}
-		while (grad - Math.abs(gyro.getGrad()) > 2) {
-			speed = (int) Math.round(grad - Math.abs(gyro.getGrad())) + 30;
+		while (grad - Math.abs(gyro.getMessung()) > 2) {
+			speed = grad - Math.abs(gyro.getMessung()) + 30;
 
 			b.setSpeed(speed * 2);
 			c.setSpeed(speed * 2);

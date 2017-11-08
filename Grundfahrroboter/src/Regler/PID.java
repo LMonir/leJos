@@ -1,6 +1,5 @@
 package Regler;
 
-import Sensoren.Lichtsensor;
 import Sensoren.StandartSensor;
 
 public class PID {
