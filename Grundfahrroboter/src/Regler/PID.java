@@ -2,11 +2,9 @@ package Regler;
 
 import Fahren.Fahren;
 import Sensoren.StandartSensor;
-import Warten.WartenAuf;
 import lejos.robotics.RegulatedMotor;
 
-public class PID extends Thread {
-	private RegulatedMotor b;
+public class PID extends Thread {	
 	private Fahren drive;
 	private int mittelwert;
 	private int geschwindigkeit;
@@ -17,8 +15,7 @@ public class PID extends Thread {
 	private boolean stop;
 
 	public PID(int mittelwert, StandartSensor s, double kp, double ki, double kd,
-			RegulatedMotor b, RegulatedMotor c) {
-		this.b = b;
+			RegulatedMotor b, RegulatedMotor c) {		
 		drive = new Fahren(b, c);
 		this.mittelwert = mittelwert;
 		this.s = s;
