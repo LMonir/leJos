@@ -6,13 +6,11 @@ import lejos.robotics.RegulatedMotor;
 public class FahrenCm extends GradCm {
 
 	private RegulatedMotor b;
-	private RegulatedMotor c;
 	private Fahren drive;
 	
 	public FahrenCm(double durchmesser, RegulatedMotor b, RegulatedMotor c) {
 		super(durchmesser);
 		this.b = b;
-		this.c = c;
 		drive = new Fahren(b, c);
 	}
 

@@ -14,8 +14,10 @@ public class Main4 {
 		b = new EV3LargeRegulatedMotor(MotorPort.B);
 		c = new EV3LargeRegulatedMotor(MotorPort.C);
 		Lichtsensor licht = new Lichtsensor(1);
-		PID pid = new PID(50, 150, licht, 0.5, 0.2, 0.8, b, c);
-		pid.drivePID();
+		PID pid = new PID(50, licht, 0.5, 0.2, 0.8, b, c);
+		pid.drivePID(150);
+		WartenAuf.Grad(b, 1500, ">=");
+		pid.stopPID();
 		System.exit(0);
 	}
 

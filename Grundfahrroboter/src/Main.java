@@ -16,11 +16,11 @@ public class Main {
 			audio.playTone(1200, 100);
 			//robo.sendeServer("Hallo Welt!");
 			//Delay.msDelay(10000);
-			robo.fahre(20, -700);
+			robo.fahreCm(20, -700);
 			//robo.drehen(60, false);
-			//robo.fahre(15, 500);
+			//robo.fahreCm(15, 500);
 			//robo.drehen(50, false);
-			//robo.fahre(36, 500);
+			//robo.fahreCm(36, 500);
 			//robo.drehen(45, false);
 			//robo.folgeCm(25, 2, 200, 45);
 			
