@@ -8,7 +8,6 @@ public class WartenAuf {
 	public static void Licht(StandartSensor s, int lichtlvl, String vergleich){
 		boolean check = false;		
 		while (!check) {
-			System.out.println(s.getMessung());
 			switch (vergleich) {
 			case "=":
 				if (s.getMessung()==lichtlvl) {check = true;}

@@ -1,4 +1,5 @@
 import Fahren.Fahren;
+import Fahren.FahrenCm;
 import Sensoren.Lichtsensor;
 import Warten.WartenAuf;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
@@ -14,9 +15,11 @@ public class Main4 {
 		b = new EV3LargeRegulatedMotor(MotorPort.B);
 		c = new EV3LargeRegulatedMotor(MotorPort.C);
 		Fahren drive = new Fahren(b,c);
-		drive.start(100);
-		WartenAuf.Licht(licht1, 10, "<=");
-		drive.stopDrive();
+		FahrenCm drivecm = new FahrenCm(49.4, b, c);
+		//drive.start(100);
+		//WartenAuf.Licht(licht1, 10, "<=");
+		//drive.stopDrive();
+		drivecm.fahreCm(30, 300);
 		System.exit(0);
 	}
 
