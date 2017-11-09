@@ -2,6 +2,15 @@ package Fahren;
 
 import lejos.robotics.RegulatedMotor;
 
+/**
+ * @author Lennart Monir
+ * @version 09.11.2017
+ * @category Movement
+ * 
+ * Die Klasse erbt von der Threads-Klasse, da das Fahren als Parallel-Prozess angesehen wird.
+ * Damit lässt sich das Fahren abhängig machen von verschiedenen Prozessen, die dann von außen Einfluss auf die Geschwindgkeit und das Fahrverhalten einnehmen können.
+ *
+ */
 public class Fahren extends Thread {
 	private RegulatedMotor b;
 	private RegulatedMotor c;	
@@ -21,6 +30,7 @@ public class Fahren extends Thread {
 		this.regulate = true;
 	}
 
+	//
 	public void run() {
 		stop = false;
 		b.resetTachoCount();
