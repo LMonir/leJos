@@ -1,8 +1,7 @@
 package ServerClient;
-import java.io.ObjectOutputStream;
-import java.io.InputStreamReader;
-import java.io.BufferedReader;
+
 import java.net.Socket;
+import java.io.*;
 
 public class Client {
 	private int port;
@@ -23,24 +22,45 @@ public class Client {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-	}	
-	
-	public String sendeAnfrage(String anfrage) {		
+	}
+
+	public String sendeAnfrage(String anfrage) {
 		String antwort = "";
-		try{
+		try {
 			connect();
-			ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());		    
-		    BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-		    
-		    out.writeObject(anfrage);
-		    antwort = in.readLine();
-		    
-		    socket.close();
-		  }
-		  catch (Exception ex){
-			  ex.printStackTrace();
-		  }
+			ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+			out.writeObject(anfrage);
+			antwort = in.readLine();
+
+			socket.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 		return antwort;
+	}
+
+	public void sendeFile(File file) {
+		try {
+			connect();
+			
+			FileInputStream in = new FileInputStream(file);
+			byte[] filebuffer = new byte[(int)file.length()];
+			
+			in.read(filebuffer);
+			
+			DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+			out.writeInt((int)file.length());
+			out.write(filebuffer);
+			
+			out.flush();
+			out.close();
+			in.close();
+			socket.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 
 	public void setPort(int port) {

@@ -2,6 +2,8 @@ package FileSystem;
 
 import java.io.*;
 
+import ServerClient.Client;
+
 public class FileSystem {
 	private static final String PATH = "/home/lejos/programs/data/";
 
@@ -38,5 +40,10 @@ public class FileSystem {
 		} catch (Exception e) {
 			System.out.println("Fehler bei CSV Datei-Erstellung");
 		}
+	}
+	
+	public static void sendFileToServer(String filename, Client client) {
+		File file = new File(PATH + filename);
+		client.sendeFile(file);
 	}
 }

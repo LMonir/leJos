@@ -1,4 +1,5 @@
 import FileSystem.FileSystem;
+import ServerClient.Client;
 import lejos.hardware.Audio;
 import lejos.hardware.LED;
 import lejos.hardware.ev3.LocalEV3;
@@ -26,7 +27,7 @@ public class Main {
 		// robo.folgeCm(25, 2, 200, 45);
 		
 		FileSystem.createDir("CSV");
-		String arr[][] = new String[10][10];
+		String arr[][] = new String[500][500];
 		
 		for (int i = 0; i < arr.length; i++) {
 			for (int j = 0; j < arr[i].length; j++) {
@@ -36,5 +37,7 @@ public class Main {
 		
 		FileSystem.saveAsCSV("CSV/test", arr);
 		
+		Client client = new Client("192.168.178.24", 6000);
+		FileSystem.sendFileToServer("CSV/test.csv", client);
 	}
 }
