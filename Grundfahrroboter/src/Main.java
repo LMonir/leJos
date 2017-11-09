@@ -34,7 +34,7 @@ public class Main {
 			}			
 		}
 		
-		FileSystem.saveAsCSV("test", arr);
+		FileSystem.saveAsCSV("CSV/test", arr);
 		
 	}
 }

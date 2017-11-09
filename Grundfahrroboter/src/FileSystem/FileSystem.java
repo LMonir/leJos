@@ -3,9 +3,9 @@ package FileSystem;
 import java.io.*;
 
 public class FileSystem {
-	private static final String PATH = "/home/lejos/programs/data";
+	private static final String PATH = "/home/lejos/programs/data/";
 
-	private static void createHomeDir() {
+	private static void createDataDir() {
 		File dir = new File(PATH);
 		if (!dir.exists()) {
 			dir.mkdirs();
@@ -14,7 +14,7 @@ public class FileSystem {
 	}
 
 	public static void createDir(String s) {
-		createHomeDir();
+		createDataDir();
 		File dir = new File(PATH + s);
 		if (!dir.exists()) {
 			dir.mkdirs();
@@ -23,7 +23,8 @@ public class FileSystem {
 
 	public static void saveAsCSV(String name, String arr[][]) {
 		try {
-			File file = new File(PATH + name);
+			File file = new File(PATH + name + ".csv");
+			file.createNewFile();
 			FileWriter fw = new FileWriter(file);
 			BufferedWriter bw = new BufferedWriter(fw);
 
