@@ -26,7 +26,7 @@ public class GradCm {
 		grad = (int)(Math.round((cm * 10) / (durchmesser * PI) * 360));
 		return grad;
 	}
-	//Errechnet zu übergebener Gradzahl die abgefahrende Strecke in cm.
+	//Errechnet zu übergebener Gradzahl die Strecke in cm.
 	public double getCm(double grad) {
 		double cm = 0;
 		cm = (grad * durchmesser * PI) / (3600);
