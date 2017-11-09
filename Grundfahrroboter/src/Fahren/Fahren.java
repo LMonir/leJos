@@ -10,6 +10,10 @@ public class Fahren extends Thread {
 	private int speedC = 0;
 	private char direction = 'f';
 	private boolean regulate;
+	public static final char FORWARD = 'f';
+	public static final char BACKWARD = 'b';
+	public static final char LEFT = 'l';
+	public static final char RIGHT = 'r';
 
 	public Fahren(RegulatedMotor b, RegulatedMotor c) {
 		this.b = b;
@@ -23,10 +27,18 @@ public class Fahren extends Thread {
 		c.resetTachoCount();
 		b.setSpeed(speedB);
 		c.setSpeed(speedC);
-		if (direction == 'b') {
+		if (direction == BACKWARD) {
 			b.backward();
 			c.backward();
-		}else {
+		}else if (direction == LEFT) {
+			b.forward();
+			c.backward();
+			regulate = false;
+		}else if (direction == RIGHT) {
+			b.backward();
+			c.forward();
+			regulate = false;
+		}else{
 			b.forward();
 			c.forward();
 		}

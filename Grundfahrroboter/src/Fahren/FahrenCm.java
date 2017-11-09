@@ -12,9 +12,9 @@ public class FahrenCm {
 		int s = 0;
 		int grad = Math.abs(grcm.getGrad(cm));
 		if (cm < 0 ^ speed < 0) {
-			drive.setDirection('b');
+			drive.setDirection(Fahren.BACKWARD);
 		} else {
-			drive.setDirection('f');
+			drive.setDirection(Fahren.FORWARD);
 		}		
 		drive.start(minspeed);
 		while ((minspeed < Math.abs(speed)) && (Math.abs(b.getTachoCount()) < (grad / 2))) {

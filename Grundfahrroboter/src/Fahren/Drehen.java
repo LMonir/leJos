@@ -6,28 +6,20 @@ import lejos.robotics.RegulatedMotor;
 public class Drehen {	
 
 	public static void drehen(int grad, boolean rechts, RegulatedMotor b, RegulatedMotor c, Gyrosensor gyro) {
+		Fahren drive = new Fahren(b, c);
 		int speed = grad - Math.abs(gyro.getMessung()) + 30;
 		gyro.reset();
-		b.resetTachoCount();
-		c.resetTachoCount();
-		b.setSpeed(speed);
-		c.setSpeed(speed);
 		if (rechts) {
-			b.forward();
-			c.backward();
+			drive.setDirection(Fahren.RIGHT);
 		} else {
-			c.forward();
-			b.backward();
+			drive.setDirection(Fahren.LEFT);
 		}
+		drive.start(speed);
 		while (grad - Math.abs(gyro.getMessung()) > 2) {
 			speed = grad - Math.abs(gyro.getMessung()) + 30;
-
-			b.setSpeed(speed * 2);
-			c.setSpeed(speed * 2);
+			drive.setSpeed(speed);
 		}
-		b.setSpeed(0);
-		c.setSpeed(0);
-
+		drive.stopDrive();
 	}
 
 }
