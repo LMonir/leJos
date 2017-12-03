@@ -1,9 +1,9 @@
 import Regler.PID;
 import Sensoren.Lichtsensor;
-import Warten.WartenAuf;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.robotics.RegulatedMotor;
+import wait.WartenAuf;
 
 public class Main4 {	
 	public static void main(String[] args) {

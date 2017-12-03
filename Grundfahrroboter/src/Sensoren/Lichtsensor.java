@@ -1,4 +1,5 @@
 package Sensoren;
+import Sensoren.StandartSensor;
 import lejos.hardware.sensor.EV3ColorSensor;
 
 public class Lichtsensor extends StandartSensor{

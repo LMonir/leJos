@@ -4,11 +4,12 @@ import Fahren.FahrenCm;
 import Regler.PID;
 import Sensoren.Gyrosensor;
 import Sensoren.Lichtsensor;
-import ServerClient.Client;
-import Warten.WartenAuf;
+import Sensoren.StandartSensor;
+import client.Client;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.robotics.RegulatedMotor;
+import wait.WartenAuf;
 
 public class Roboter {
 	private double durchmesser;

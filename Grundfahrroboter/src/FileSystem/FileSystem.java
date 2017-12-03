@@ -2,7 +2,7 @@ package FileSystem;
 
 import java.io.*;
 
-import ServerClient.Client;
+import client.Client;
 
 public class FileSystem {
 	private static final String PATH = "/home/lejos/programs/data/";
