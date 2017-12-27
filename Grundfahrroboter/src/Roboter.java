@@ -1,67 +1,77 @@
-import Berechnung.GradCm;
-import Fahren.Drehen;
-import Fahren.FahrenCm;
-import Regler.PID;
-import Sensoren.Gyrosensor;
-import Sensoren.Lichtsensor;
-import ServerClient.Client;
-import Warten.WartenAuf;
+import client.Client;
+import control.PID;
+import driving.Turn;
+import driving.DriveCm;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.robotics.RegulatedMotor;
+import logic.DegreeCm;
+import sensors.Gyrosensor;
+import sensors.Lightsensor;
+import wait.WaitFor;
 
+/**
+ * Die Roboter-Klasse vereint alle Eigenschaften und Klassen des Roboters. Sie soll ein digitales Abbild des Roboters darstellen und alle Funktionen zur Verfügung stellen,
+ * die der Roboter besitzt.
+ * @author Lennart Monir
+ * @version 0.1 *
+ */
 public class Roboter {
-	private double durchmesser;
-	private PID pidLicht;
+	private double diameter;
+	private PID pidLight;
 	private PID pidGyro;
-	private GradCm grcm;
 	private RegulatedMotor b;
 	private RegulatedMotor c;
-	private Lichtsensor licht1;
+	private Lightsensor light1;
 	private Gyrosensor gyro;
 	private Client client;
 		
-	public Roboter (double durchmesser) {
+	/**
+	 * Der Konstruktor initialisiert einen Client, um mit einem Server zu komunizieren, meldet zwei Motoren an ihren Ports B und C an, meldet einen Lichtsensor am Port
+	 * S1 und einen Gyrosensor am Port S3 an.
+	 * Ebenso werdem dem Roboter zwei PID-Regler für den Lichtsensor und den Gyrosensor zur Verfügung gestellt.
+	 * @param diameter, der Durchmesser der Reifen des Roboters zum Zeitpunkt des Aufrufs des Klassenobjektes.
+	 */
+	public Roboter (double diameter) {
 		client = new Client("192.168.178.24", 6000);
-		this.setDurchmesser(durchmesser);
+		this.setDiameter(diameter);
 		b = new EV3LargeRegulatedMotor(MotorPort.B);
 		c = new EV3LargeRegulatedMotor(MotorPort.C);
-		licht1 = new Lichtsensor(1);
+		light1 = new Lightsensor(1);
 		gyro = new Gyrosensor(3);
-		pidLicht = new PID(50, licht1, 0.5, 0.2, 0.8, b, c);
-		pidGyro = new PID(0, gyro, 0.5, 0.2, 0.8, b, c);
-		grcm = new GradCm(durchmesser);
+		pidLight = new PID(50, light1, 0.5, 0.2, 0.8, b, c);
+		pidGyro = new PID(0, gyro, 0.5, 0.2, 0.8, b, c);		
 	}
 	
-	public void pidLichtCm(int geschwindigkeit, double cm) {
-		pidLicht.drivePID(geschwindigkeit);
-		WartenAuf.Grad(b, grcm.getGrad(cm), ">=");
-		pidLicht.stopPID();
+	public void pidLightCm(int speed, double cm) {
+		pidLight.drivePID(speed);
+		WaitFor.Degree(b, DegreeCm.getDegree(cm, diameter), ">=");
+		pidLight.stopPID();
 	}
 	
-	public void pidGyroCm(int geschwindigkeit, double cm) {
-		pidGyro.drivePID(geschwindigkeit);
-		WartenAuf.Grad(b, grcm.getGrad(cm), ">=");
+	public void pidGyroCm(int speed, double cm) {
+		pidGyro.drivePID(speed);
+		WaitFor.Degree(b, DegreeCm.getDegree(cm, diameter), ">=");
 		pidGyro.stopPID();
 	}
 	
-	public void fahreCm(double cm, int speed) {
-		FahrenCm.fahreCm(cm, speed, b, c, grcm);
+	public void driveCm(double cm, int speed) {
+		DriveCm.driveCm(cm, speed, b, c, diameter);
 	}
 		
-	public void drehen(int grad, boolean rechts) {
-		Drehen.drehen(grad, rechts, b, c, gyro);
+	public void turn(int degree, boolean right) {
+		Turn.turn(degree, right, b, c, gyro);
 	}
 
-	public double getDurchmesser() {
-		return durchmesser;
+	public double getDiameter() {
+		return diameter;
 	}
 
-	public void setDurchmesser(double durchmesser) {
-		this.durchmesser = durchmesser;
+	public void setDiameter(double diameter) {
+		this.diameter = diameter;
 	}
 	
 	public void sendeServer(String anfrage) {
-		client.sendeAnfrage(anfrage);
+		client.sendRequest(anfrage);
 	}
 }
