@@ -65,7 +65,7 @@ public class PID extends Thread {
 			double control = Math.round(px+ix+dx);
 			drive.setSpeedB((int) (speed - control));
 			drive.setSpeedC((int) (speed + control));
-			//System.out.println(dx);
+			//System.out.println(control);
 		}
 	}
 
