@@ -4,7 +4,6 @@ import Fahren.FahrenCm;
 import Regler.PID;
 import Sensoren.Gyrosensor;
 import Sensoren.Lichtsensor;
-import Sensoren.StandartSensor;
 import client.Client;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.MotorPort;
