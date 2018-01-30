@@ -1,8 +1,8 @@
 package control;
 
-import Regler.DRegler;
-import Regler.IRegler;
-import Regler.PRegler;
+import control.DRegler;
+import control.IRegler;
+import control.PRegler;
 import driving.Driving;
 import lejos.robotics.RegulatedMotor;
 import sensors.DefaultSensor;

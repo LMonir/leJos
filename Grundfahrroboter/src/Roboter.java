@@ -39,7 +39,7 @@ public class Roboter {
 		c = new EV3LargeRegulatedMotor(MotorPort.C);
 		light1 = new Lightsensor(1);
 		gyro = new Gyrosensor(3);
-		pidLight = new PID(50, light1, 0.5, 0.2, 0.8, b, c);
+		pidLight = new PID(50, light1, 2, 25, 20, b, c);
 		pidGyro = new PID(0, gyro, 0.5, 0.2, 0.8, b, c);		
 	}
 	
