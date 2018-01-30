@@ -33,5 +33,6 @@ public class DriveCm {
 		}
 		drive.stopDriving();
 		drive = null;
+		System.out.println("Bin gefahren!");
 	}
 }

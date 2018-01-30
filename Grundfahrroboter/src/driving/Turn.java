@@ -36,6 +36,7 @@ public class Turn {
 			drive.setSpeed(speed);
 		}
 		drive.stopDriving();
+		System.out.println("Habe mich gedreht!");
 	}
 
 }
