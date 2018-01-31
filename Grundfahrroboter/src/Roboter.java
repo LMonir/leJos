@@ -74,4 +74,8 @@ public class Roboter {
 	public void sendeServer(String anfrage) {
 		client.sendRequest(anfrage);
 	}
+	
+	public void hardGyroReset() {
+		gyro.resetHard();
+	}
 }

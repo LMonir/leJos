@@ -14,15 +14,16 @@ public class Main4 {
 		audio.playTone(1200, 100);
 		led.setPattern(7);
 		
-		
+		robo.hardGyroReset();
+				
 		robo.driveCm(30, 200);
-		robo.turn(89, false);
+		robo.turn(88, false);
 		robo.driveCm(30, 300);
-		robo.turn(89, false);
+		robo.turn(88, false);
 		robo.driveCm(30, 400);
-		robo.turn(89, false);
+		robo.turn(88, false);
 		robo.driveCm(30, 500);
-		robo.turn(89, false);
+		robo.turn(88, false);
 		
 		System.exit(0);
 	}
