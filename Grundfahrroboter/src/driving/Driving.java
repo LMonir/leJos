@@ -77,6 +77,9 @@ public class Driving extends Thread {
 					b.setSpeed(speedB);
 					c.setSpeed(speedC);
 				}
+			}else {
+				b.setSpeed(speedB);
+				c.setSpeed(speedC);
 			}
 		}
 		b.setSpeed(0);
