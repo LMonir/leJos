@@ -16,15 +16,15 @@ public class Main4 {
 		
 		robo.hardGyroReset();
 				
-		//robo.driveCm(2, 200);
-		robo.turn(90, false);
-		//robo.driveCm(2, 300);
-		robo.turn(90, false);
-		//robo.driveCm(2, 400);
-		robo.turn(90, false);
-		//robo.driveCm(2, 500);
-		robo.turn(89, false);
-		
+		robo.driveCm(10, 20);
+		//robo.turn(90, false);
+		robo.driveCm(10, 40);
+		//robo.turn(90, false);
+		robo.driveCm(10, 60);
+		//robo.turn(90, false);
+		robo.driveCm(10, 80);
+		//robo.turn(89, false);
+		robo.driveCm(10, 100);
 		System.exit(0);
 	}
 

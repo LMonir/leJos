@@ -6,6 +6,7 @@ import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.robotics.RegulatedMotor;
 import logic.DegreeCm;
+import logic.PowerRegulation;
 import sensors.Gyrosensor;
 import sensors.Lightsensor;
 import wait.WaitFor;
@@ -44,19 +45,19 @@ public class Roboter {
 	}
 	
 	public void pidLightCm(int speed, double cm) {
-		pidLight.drivePID(speed);
+		pidLight.drivePID(PowerRegulation.getSpeed(speed, b));
 		WaitFor.Degree(b, DegreeCm.getDegree(cm, diameter), ">=");
 		pidLight.stopPID();
 	}
 	
 	public void pidGyroCm(int speed, double cm) {
-		pidGyro.drivePID(speed);
+		pidGyro.drivePID(PowerRegulation.getSpeed(speed, b));
 		WaitFor.Degree(b, DegreeCm.getDegree(cm, diameter), ">=");
 		pidGyro.stopPID();
 	}
 	
 	public void driveCm(double cm, int speed) {
-		DriveCm.driveCm(cm, speed, b, c, diameter);
+		DriveCm.driveCm(cm, PowerRegulation.getSpeed(speed, b), b, c, diameter);
 	}
 		
 	public void turn(int degree, boolean right) {

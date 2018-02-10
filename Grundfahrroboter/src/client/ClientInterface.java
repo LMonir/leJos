@@ -12,13 +12,18 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 public interface ClientInterface extends Remote {
-	public void drive(int cm) throws RemoteException;
+	public void driveCm(int cm, int speed) throws RemoteException;
+	public void drive(int cm, int speed) throws RemoteException;
+	public void driveUntilBlack(int speed) throws RemoteException;
 	
-	public void turn(int degree) throws RemoteException;
+	public void driveBackCm(int cm, int speed) throws RemoteException;
+	public void driveBack(int cm, int speed) throws RemoteException;
 	
-	public void drivePID(int cm) throws RemoteException;
+	public void turnLeft() throws RemoteException;
+	public void turnRight() throws RemoteException;
+	public void turnAround() throws RemoteException;
 	
-	public void drivePIDUntiLight(int lightlvl) throws RemoteException;
+	public void drivePID(int cm, int speed) throws RemoteException;
 	
 	public void stop() throws RemoteException;
 	
