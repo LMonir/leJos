@@ -11,7 +11,8 @@ package client;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-public interface ClientInterface extends Remote {
+public interface RoboServerInterface extends Remote {
+	
 	public void driveCm(int cm, int speed) throws RemoteException;
 	public void drive(int cm, int speed) throws RemoteException;
 	public void driveUntilBlack(int speed) throws RemoteException;
