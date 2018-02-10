@@ -2,6 +2,7 @@
 import lejos.hardware.Audio;
 import lejos.hardware.LED;
 import lejos.hardware.ev3.LocalEV3;
+import lejos.utility.Delay;
 import logic.Roboter;
 
 public class Main4 {	
@@ -17,15 +18,10 @@ public class Main4 {
 		
 		robo.hardGyroReset();
 				
-		robo.driveCm(10, 20);
-		//robo.turn(90, false);
-		robo.driveCm(10, 40);
-		//robo.turn(90, false);
-		robo.driveCm(10, 60);
-		//robo.turn(90, false);
-		robo.driveCm(10, 80);
-		//robo.turn(89, false);
-		robo.driveCm(10, 100);
+		robo.drive(50);
+		Delay.msDelay(3000);
+		robo.stopDrive();
+		
 		System.exit(0);
 	}
 

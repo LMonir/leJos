@@ -12,62 +12,53 @@ public class RoboServer implements RoboServerInterface{
 
 	@Override
 	public void driveCm(int cm, int speed) throws RemoteException {
-		// TODO Auto-generated method stub
-		
+		robo.driveCm(cm, speed);		
 	}
 
 	@Override
-	public void drive(int cm, int speed) throws RemoteException {
-		// TODO Auto-generated method stub
-		
+	public void drive(int speed) throws RemoteException {
+		robo.drive(speed);
 	}
 
 	@Override
 	public void driveUntilBlack(int speed) throws RemoteException {
-		// TODO Auto-generated method stub
+		robo.driveUntilLight(speed, 5, "<=");
 		
 	}
 
 	@Override
 	public void driveBackCm(int cm, int speed) throws RemoteException {
-		// TODO Auto-generated method stub
-		
+		robo.driveCm(cm, -speed);		
 	}
 
 	@Override
 	public void driveBack(int cm, int speed) throws RemoteException {
-		// TODO Auto-generated method stub
-		
+		robo.drive(-speed);
 	}
 
 	@Override
 	public void turnLeft() throws RemoteException {
-		// TODO Auto-generated method stub
-		
+		robo.turn(90, true);
 	}
 
 	@Override
 	public void turnRight() throws RemoteException {
-		// TODO Auto-generated method stub
-		
+		robo.turn(90, false);		
 	}
 
 	@Override
 	public void turnAround() throws RemoteException {
-		// TODO Auto-generated method stub
-		
+		robo.turn(180, false);
 	}
 
 	@Override
 	public void drivePID(int cm, int speed) throws RemoteException {
-		// TODO Auto-generated method stub
-		
+		robo.pidLightCm(speed, cm);
 	}
 
 	@Override
-	public void stop() throws RemoteException {
-		// TODO Auto-generated method stub
-		
+	public void stopDrive() throws RemoteException {
+		robo.stopDrive();
 	}
 
 	@Override
