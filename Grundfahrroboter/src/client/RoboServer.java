@@ -11,7 +11,7 @@ public class RoboServer implements RoboServerInterface{
 	private Roboter robo = new Roboter(43);
 
 	@Override
-	public void driveCm(int cm, int speed) throws RemoteException {
+	public void driveCm(double cm, int speed) throws RemoteException {
 		robo.driveCm(cm, speed);		
 	}
 
@@ -27,7 +27,7 @@ public class RoboServer implements RoboServerInterface{
 	}
 
 	@Override
-	public void driveBackCm(int cm, int speed) throws RemoteException {
+	public void driveBackCm(double cm, int speed) throws RemoteException {
 		robo.driveCm(cm, -speed);		
 	}
 
@@ -38,12 +38,12 @@ public class RoboServer implements RoboServerInterface{
 
 	@Override
 	public void turnLeft() throws RemoteException {
-		robo.turn(90, true);
+		robo.turn(90, false);
 	}
 
 	@Override
 	public void turnRight() throws RemoteException {
-		robo.turn(90, false);		
+		robo.turn(90, true);		
 	}
 
 	@Override

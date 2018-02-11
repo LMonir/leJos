@@ -13,11 +13,11 @@ import java.rmi.RemoteException;
 
 public interface RoboServerInterface extends Remote {
 	
-	public void driveCm(int cm, int speed) throws RemoteException;
+	public void driveCm(double cm, int speed) throws RemoteException;
 	public void drive(int speed) throws RemoteException;
 	public void driveUntilBlack(int speed) throws RemoteException;
 	
-	public void driveBackCm(int cm, int speed) throws RemoteException;
+	public void driveBackCm(double cm, int speed) throws RemoteException;
 	public void driveBack(int cm, int speed) throws RemoteException;
 	
 	public void turnLeft() throws RemoteException;

@@ -18,9 +18,11 @@ public class Main4 {
 		
 		robo.hardGyroReset();
 				
-		robo.drive(50);
-		Delay.msDelay(3000);
-		robo.stopDrive();
+		robo.driveCm(5, 20);
+		robo.driveCm(5, 20);
+		robo.driveCm(5, 20);
+		robo.driveCm(5, 20);
+		robo.driveCm(5, 20);
 		
 		System.exit(0);
 	}
