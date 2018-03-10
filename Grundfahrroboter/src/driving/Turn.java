@@ -23,6 +23,9 @@ public class Turn {
 	 */
 	public static void turn(int grad, boolean right, RegulatedMotor b, RegulatedMotor c, Gyrosensor gyro) {
 		Driving drive = new Driving(b, c);
+		try {
+			Thread.sleep(200);
+		} catch (InterruptedException e) {}
 		int speed = grad - Math.abs(gyro.getValue()) + 30;
 		gyro.reset();
 		if (right) {
@@ -33,7 +36,6 @@ public class Turn {
 		drive.start(speed);
 		while (grad - Math.abs(gyro.getValue()) > 1) {
 			speed = grad - Math.abs(gyro.getValue()) + 50;
-			System.out.println(gyro.getValue());
 			drive.setSpeed(speed);
 		}
 		drive.stopDriving();

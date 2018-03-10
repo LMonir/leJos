@@ -10,8 +10,15 @@ package client;
  */
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-
-public interface RoboServerInterface extends Remote {
+/**
+ * Interface, welches jedes Fahrzeug, dass sich mit der Server verbinden will, 
+ * implementieren muss um die Methoden vom Server ansprechen zu können. 
+ * @author garte
+ *
+ */
+public interface RemoteVehicleInterface extends Remote {
+	
+	public void registerWorkerInVehicle(String name, String ip, int port) throws RemoteException;
 	
 	public void driveCm(double cm, int speed) throws RemoteException;
 	public void drive(int speed) throws RemoteException;
@@ -28,6 +35,11 @@ public interface RoboServerInterface extends Remote {
 	
 	public void stopDrive() throws RemoteException;
 	
+	public void driveNextPoint(int speed) throws RemoteException;
+	
 	public String getStatus() throws RemoteException;
+	public String getError() throws RemoteException;
+	
+	public void closeConnection() throws RemoteException;
 }
 

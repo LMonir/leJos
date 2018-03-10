@@ -9,7 +9,7 @@ import lejos.robotics.RegulatedMotor;
  * @version 09.11.2017
  * @category Movement
  */
-public class Driving extends Thread {
+public class Driving extends Thread{
 	public final static char FORWARD = 'f';
 	public final static char BACKWARD = 'b';
 	public final static char LEFT = 'l';
@@ -17,11 +17,9 @@ public class Driving extends Thread {
 	
 	private RegulatedMotor b;
 	private RegulatedMotor c;	
-	private boolean stop;
 	private int speedB;
 	private int speedC;
 	private char direction;
-	private boolean regulate;
 	
 
 	/**
@@ -32,11 +30,9 @@ public class Driving extends Thread {
 	public Driving(RegulatedMotor b, RegulatedMotor c) {
 		this.b = b;
 		this.c = c;
-		stop = false;
 		speedB = 0;
 		speedC = 0;
 		direction = FORWARD;
-		this.regulate = true;
 	}
 
 	
@@ -49,7 +45,6 @@ public class Driving extends Thread {
 	 */
 	//TODO Regulierung auch für die Drehung einbauen!
 	public void run() {
-		stop = false;
 		b.resetTachoCount();
 		c.resetTachoCount();
 		b.setSpeed(speedB);
@@ -57,41 +52,17 @@ public class Driving extends Thread {
 		if (direction == BACKWARD) {
 			b.backward();
 			c.backward();
-			regulate = true;
 		}else if (direction == RIGHT) {
 			b.forward();
 			c.backward();
-			regulate = false;
 		}else if (direction == LEFT) {
 			b.backward();
 			c.forward();
-			regulate = false;
 		}else{
 			b.forward();
 			c.forward();
-			regulate = true;
 		}
-		while (!isInterrupted()) {
-			if (regulate) {
-				if (b.getTachoCount() < c.getTachoCount()) {
-					b.setSpeed(speedB + 1);
-					c.setSpeed(speedC);
-				} else if (b.getTachoCount() > c.getTachoCount()) {
-					c.setSpeed(speedC + 1);
-					b.setSpeed(speedB);
-				} else {
-					b.setSpeed(speedB);
-					c.setSpeed(speedC);
-				}
-			}else {
-				b.setSpeed(speedB);
-				c.setSpeed(speedC);
-			}
-		}
-		b.setSpeed(0);
-		c.setSpeed(0);
-		b.stop(true);
-		c.stop(true);
+		//while (!isInterrupted()) {}
 	}
 
 	/**
@@ -99,10 +70,15 @@ public class Driving extends Thread {
 	 * @param speed, die Geschwindigkeit
 	 */
 	public void start(int speed) {
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {}
 		this.speedB = speed;
 		this.speedC = speed;
 		b.resetTachoCount();
 		c.resetTachoCount();
+		b.setSpeed(speed);
+		c.setSpeed(speed);
 		start();
 	}
 
@@ -113,25 +89,33 @@ public class Driving extends Thread {
 	 * @param speedC, Geschwindigkeit für Motor C
 	 */
 	public void start(int speedB, int speedC) {
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {}
 		this.speedB = speedB;
 		this.speedC = speedC;
 		b.resetTachoCount();
 		c.resetTachoCount();
-		setRegulation(false);
+		b.setSpeed(speedB);
+		c.setSpeed(speedC);
 		start();
 	}
 
 	public void setSpeed(int speed) {
 		this.speedB = speed;
 		this.speedC = speed;
+		b.setSpeed(speed);
+		c.setSpeed(speed);
 	}
 
 	public void setSpeedB(int speed) {
 		this.speedB = speed;
+		b.setSpeed(speed);
 	}
 
 	public void setSpeedC(int speed) {
 		this.speedC = speed;
+		c.setSpeed(speed);
 	}
 
 	public int getSpeedB() {
@@ -141,18 +125,11 @@ public class Driving extends Thread {
 	public int getSpeedC() {
 		return speedC;
 	}
-
-	public void setRegulation(boolean regulate) {
-		this.regulate = regulate;
-	}
 	
-	public boolean getRegulation() {
-		return regulate;
-	}
-	
-	public void stopDriving() {
+	public void stopDriving() {		
+		b.setSpeed(0);
+		c.setSpeed(0);
 		interrupt();
-		stop = true;
 	}
 
 	public void setDirection(char d) {

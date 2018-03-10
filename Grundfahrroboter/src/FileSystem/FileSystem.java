@@ -1,7 +1,7 @@
 package FileSystem;
 
 import java.io.*;
-import client.Client;
+import java.util.ResourceBundle;
 
 /**
  * Die FileSystem Klasse verwaltet das erstellen und schreiben von Datein und Ordnern.
@@ -61,13 +61,15 @@ public class FileSystem {
 		}
 	}
 	
-	/**
-	 * Diese Methode sendet eine Datei an einen Server.
-	 * @param filename, der Dateiname. Pfad beachten!
-	 * @param client, ein Clientobjekt
-	 */
-	public static void sendFileToServer(String filename, Client client) {
-		File file = new File(PATH + filename);
-		client.sendFile(file);
+	public static String readProperties(int number, String s) {
+		ResourceBundle prop;
+		prop = ResourceBundle.getBundle("FileSystem/Robo"+ number);
+		return prop.getString(s);
+	}
+	
+	public static String readProperties(String s) {
+		ResourceBundle prop;
+		prop = ResourceBundle.getBundle("FileSystem/AllRobots");
+		return prop.getString(s);
 	}
 }
